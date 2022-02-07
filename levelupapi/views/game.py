@@ -3,7 +3,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from levelupapi.models import Game
+from levelupapi.models import Game, Gamer, GameType
+from django.core.exceptions import ValidationError
 
 
 class GameView(ViewSet):
@@ -31,10 +32,30 @@ class GameView(ViewSet):
         game = Game.objects.all()
         serializer = GameSerializer(game, many=True)
         return Response(serializer.data)
+    
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized game instance
+        """
+        gamer = Gamer.objects.get(user=request.auth.user)
+        try:
+            serializer = CreateGameSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(gamer=gamer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
 class GameSerializer(serializers.ModelSerializer):
     """JSON serializer for game types
     """
     class Meta:
         model = Game
-        fields = ('id', 'label')
+        fields = '__all__'
+        
+class CreateGameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ['id', 'title', 'maker', 'number_of_players', 'skill_level', 'game_type']
