@@ -1,0 +1,38 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "game": 1,
+            "description": "FireCon",
+            "date": "2022-02-15",
+            "time": "05:00",
+            "organizer": 1,
+            "attendees": [1]
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "game": 2,
+            "description": "NukaCon",
+            "date": "2022-02-10",
+            "time": "05:00",
+            "organizer": 1,
+            "attendees": [1]
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 3,
+        "fields": {
+            "game": 1,
+            "description": "ConeCon",
+            "date": "2022-03-15",
+            "time": "05:00",
+            "organizer": 1,
+            "attendees": [1]
+        }
+    }
+]

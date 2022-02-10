@@ -1,0 +1,38 @@
+[
+    {
+      "model": "levelupapi.game",
+      "pk": 1,
+      "fields": {
+        "game_type": 1,
+        "title": "Catan Starfarers",
+        "maker": "Klaus Teuber",
+        "gamer": 1,
+        "number_of_players": 4,
+        "skill_level": 4
+      }
+    },
+    {
+      "model": "levelupapi.game",
+      "pk": 2,
+      "fields": {
+        "game_type": 2,
+        "title": "Fallout 76",
+        "maker": "Bethesda",
+        "gamer": 1,
+        "number_of_players": 6,
+        "skill_level": 5
+      }
+    },
+    {
+      "model": "levelupapi.game",
+      "pk": 3,
+      "fields": {
+        "game_type": 3,
+        "title": "Cones of Dunshire",
+        "maker": "Ben Wyatt",
+        "gamer": 1,
+        "number_of_players": 4,
+        "skill_level": 8
+      }
+    }
+  ]
