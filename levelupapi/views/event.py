@@ -35,18 +35,21 @@ class EventView(ViewSet):
     
     def create(self, request):
         """Handle POST operations
-
         Returns:
             Response -- JSON serialized game instance
         """
-        gamer = Gamer.objects.get(user=request.auth.user)
-        try:
-            serializer = CreateEventSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save(organizer=gamer)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except ValidationError as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+        organizer = Gamer.objects.get(user=request.auth.user)
+        game = Game.objects.get(pk=request.data["game"])
+
+        event = Event.objects.create(
+            game=game,
+            description=request.data["description"],
+            date=request.data["date"],
+            time=request.data["time"],
+            organizer=organizer,
+        )
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
         
     def update(self, request, pk):
         """Handle PUT requests for a game
